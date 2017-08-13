@@ -55,10 +55,9 @@ public:
 
 
 private:
-    void draw();                    
-    void update(float);           
+    void draw();
     void drawCard(int howMany);
 
-    RenderWindow window;         
+    RenderWindow window;
 
 };

@@ -77,11 +77,7 @@ skill[4].setThis(20, "MOOOOC!", 1, 0, 'd', "media/cute_image.png");
 
 Cards::setCharacters(hero, enemy);
 
-//myDeck.draw(artifact[1]);
-//myDeck.draw(weapon[1]);
-//myDeck.draw(skill[1]);
-//myDeck.draw(spell[1]);
-//myDeck.draw(artifact[0]);
+
 
 }
 
@@ -93,18 +89,13 @@ Game::~Game()
 
 
 
-// metoda zawieraj¹ca pêtlê g³ówn¹
+
 void Game::start()
 {
 
 sf::Clock clock;
 bool rightButtonReleased;
 
-    // ostatnie rysowanie klatki;
-    Time lastUpdate = Time::Zero;
-
-    // do mierzenia czasu pomiêdzy klatkami
-    Clock time;
 
 
     while (window.isOpen())
@@ -136,7 +127,7 @@ sf::Time timeFromCardDrawn = clock.getElapsedTime();
 
 
 
-if (boundingBoxCursor.intersects(endTurnBoundingBox)) // you can click it once per 5 seconds
+if (boundingBoxCursor.intersects(endTurnBoundingBox))
 {
        endTurnSprite.setColor(Color::Red);
 
@@ -150,7 +141,7 @@ if (boundingBoxCursor.intersects(endTurnBoundingBox)) // you can click it once p
 
 
 
-// END TURN HERE
+
 
 
 Cards::setCursor(cursor);
@@ -171,10 +162,7 @@ Artifact::refreshArtifacts();
        else if (hero.isDead() && enemy.isDead())std::cout<<"Draw!\n";
 
 
-        float delta = time.getElapsedTime().asSeconds() - lastUpdate.asSeconds();
-        update(delta);
 
-        lastUpdate = time.getElapsedTime();
         draw();
     }
 
@@ -182,13 +170,6 @@ Artifact::refreshArtifacts();
 
 
 
-
-
-// argumentem jest delta_time, czyli czas pomiêdzy klatkami
-void Game::update(float delta)
-{
-   // std::cout << delta << std::endl;
-}
 
 
 // do rysowania wszystkich obiektów na scenie
