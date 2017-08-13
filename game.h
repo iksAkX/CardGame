@@ -50,15 +50,15 @@ public:
     Game();
     ~Game();
 
-    // funkcja s³u¿¹ca do uruchomienia gry
+
     void start();
 
 
 private:
-    void draw();                    // metoda do rysowania wszystkich obiektów
-    void update(float);             // metoda do aktualizaowania wszystkich obiektów
+    void draw();                    
+    void update(float);           
     void drawCard(int howMany);
 
-    RenderWindow window;            // wyœwietlane okno
+    RenderWindow window;         
 
 };
