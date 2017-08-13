@@ -19,6 +19,8 @@ public:
     Spell spell[5];
     Skill skill[5];
 
+   static bool cardDrawn;
+
    sf::Texture heroTexture;
    sf::Sprite heroSprite;
    sf::Text yourName;
@@ -55,7 +57,7 @@ public:
 private:
     void draw();                    // metoda do rysowania wszystkich obiektów
     void update(float);             // metoda do aktualizaowania wszystkich obiektów
-    void drawCard();
+    void drawCard(int howMany);
 
     RenderWindow window;            // wyœwietlane okno
 

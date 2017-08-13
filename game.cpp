@@ -1,6 +1,7 @@
 #include "game.h"
 #include <iostream>
 
+bool Game::cardDrawn = false;
 
 Game::Game()
 {
@@ -38,6 +39,7 @@ Game::Game()
    heroTexture.loadFromFile("media/"); //////
    heroSprite.setTexture(heroTexture);
 
+    Game::cardDrawn = false;
 
 
    enemy.setCharacter("The little one", 30, 5, enemyName, enemyTexture, enemySprite, 1, 1);
@@ -46,6 +48,7 @@ Game::Game()
 
     cardsInEnemyDeck = 20;
    cardsInPlayerDeck = 20;
+
 
 
 artifact[0].setThis(1, "Ancient Artifact", 2, 1, 'd', "media/ancient_artifact.png", 3, 2); // done
@@ -94,7 +97,8 @@ Game::~Game()
 void Game::start()
 {
 
-
+sf::Clock clock;
+bool rightButtonReleased;
 
     // ostatnie rysowanie klatki;
     Time lastUpdate = Time::Zero;
@@ -105,12 +109,18 @@ void Game::start()
 
     while (window.isOpen())
     {
+        rightButtonReleased=false;
         Event event;
         while (window.pollEvent(event))
         {
             if (event.type == Event::Closed)
                 window.close();
+
+                if (event.type == sf::Event::MouseButtonReleased){
+                    if (event.mouseButton.button == sf::Mouse::Right)rightButtonReleased=true;
+                }
         }
+
 
 cursor.setPosition(static_cast<Vector2f>(Mouse::getPosition(window)));
 
@@ -118,16 +128,29 @@ endTurnSprite.setColor(Color::Green);
 
         //////BEGINNING - TURN
 
+
+
 sf::FloatRect boundingBoxCursor = cursor.getGlobalBounds();
 sf::FloatRect endTurnBoundingBox = endTurnSprite.getGlobalBounds();
+sf::Time timeFromCardDrawn = clock.getElapsedTime();
 
-if (boundingBoxCursor.intersects(endTurnBoundingBox))
+
+
+if (boundingBoxCursor.intersects(endTurnBoundingBox)) // you can click it once per 5 seconds
 {
-    if (Mouse::isButtonPressed(Mouse::Left));// END TURN here
-    endTurnSprite.setColor(Color::Red);
-    drawCard();
+       endTurnSprite.setColor(Color::Red);
+
+    if ( Mouse::isButtonPressed(Mouse::Left) && timeFromCardDrawn.asMilliseconds() > 200){//
+
+    drawCard(1);
+    clock.restart();
+    }
 }
 
+
+
+
+// END TURN HERE
 
 
 Cards::setCursor(cursor);
@@ -207,125 +230,40 @@ void Game::draw()
     window.display();
 }
 
-void Game::drawCard(){
+void Game::drawCard(int howMany){
+
 
 int numberOfCardsInDeck = cardsInPlayerDeck; // until this and this one below will be correct, all should work correctly
 int smallestId = 1;
 
 int repeats = 0;
 
+
 srand( time( NULL ) );
+
+for (int i=0;i<=howMany-1;i++){
+    Game::cardDrawn = false;
+      int numberOfCardThatWillBeDrawn = ( std::rand() % numberOfCardsInDeck ) + smallestId;
 again:
-    int numberOfCardThatWillBeDrawn = ( std::rand() % numberOfCardsInDeck ) + smallestId;
+
 
 repeats++;
-/*
-switch(numberOfCardThatWillBeDrawn){
-
-case 1:
-    artifact[0].draw();
-    break;
-
-    case 2:
-    artifact[1].draw();
-    break;
-
-    case 3:
-    artifact[2].draw();
-    break;
-
-    case 4:
-    artifact[3].draw();
-    break;
-
-    case 5:
-    artifact[5].draw();
-    break;
-
-    case 6:
-    weapon[0].draw();
-    break;
-
-    case 7:
-    weapon[1].draw();
-    break;
-
-    case 8:
-    weapon[2].draw();
-    break;
-
-    case 9:
-    weapon[3].draw();
-    break;
-
-    case 10:
-    weapon[4].draw();
-    break;
-
-    case 11:
-    weapon[0].draw();
-    break;
-
-    case 12:
-    weapon[0].draw();
-    break;
-
-    case 13:
-    weapon[0].draw();
-    break;
 
 
-    case 14:
-    weapon[0].draw();
-    break;
 
-
-    case 15:
-    weapon[0].draw();
-    break;
-
-
-    case 16:
-    weapon[0].draw();
-    break;
-
-
-    case 17:
-    weapon[0].draw();
-    break;
-
-
-    case 18:
-    weapon[0].draw();
-    break;
-
-
-    case 19:
-    weapon[0].draw();
-    break;
-
-
-    case 20:
-    weapon[0].draw();
-    break;
-
-
-}
-
-*/
-
-
-if (numberOfCardThatWillBeDrawn <= 5 &&  artifact[numberOfCardThatWillBeDrawn].draw() ){ std::cout << artifact[numberOfCardThatWillBeDrawn].getId() << std::endl;}
-else if (numberOfCardThatWillBeDrawn <= 10 && numberOfCardThatWillBeDrawn >= 5 && weapon[numberOfCardThatWillBeDrawn-5].draw()){ std::cout << artifact[numberOfCardThatWillBeDrawn-5].getId() << std::endl;}
-else if (numberOfCardThatWillBeDrawn <= 15 && numberOfCardThatWillBeDrawn >= 10 && spell[numberOfCardThatWillBeDrawn-10].draw()){ std::cout << spell[numberOfCardThatWillBeDrawn-10].getId() << std::endl;}
-else if (numberOfCardThatWillBeDrawn <= 20 && numberOfCardThatWillBeDrawn >= 15 && skill[numberOfCardThatWillBeDrawn-15].draw()){  std::cout << skill[numberOfCardThatWillBeDrawn-15].getId() << std::endl;}
+if (numberOfCardThatWillBeDrawn <= 5 &&  artifact[numberOfCardThatWillBeDrawn].draw() && Game::cardDrawn == false ){ std::cout << artifact[numberOfCardThatWillBeDrawn].getId() << std::endl; Game::cardDrawn = true; }
+else if (numberOfCardThatWillBeDrawn <= 10 && numberOfCardThatWillBeDrawn >= 5 && weapon[numberOfCardThatWillBeDrawn-5].draw() && Game::cardDrawn == false){ std::cout << artifact[numberOfCardThatWillBeDrawn-5].getId() << std::endl; Game::cardDrawn = true; }
+else if (numberOfCardThatWillBeDrawn <= 15 && numberOfCardThatWillBeDrawn >= 10 && spell[numberOfCardThatWillBeDrawn-10].draw() && Game::cardDrawn == false){ std::cout << spell[numberOfCardThatWillBeDrawn-10].getId() << std::endl; Game::cardDrawn = true;}
+else if (numberOfCardThatWillBeDrawn <= 20 && numberOfCardThatWillBeDrawn >= 15 && skill[numberOfCardThatWillBeDrawn-15].draw() && Game::cardDrawn == false){  std::cout << skill[numberOfCardThatWillBeDrawn-15].getId() << std::endl; Game::cardDrawn = true;}
 
 if(repeats <= 20){
     goto again;
 cardsInPlayerDeck--;
 }
+ else std::cout << "Card cannot be drawn, deck is empty."  << std::endl;
 
-else std::cout << "Card cannot be drawn, deck is empty."  << std::endl;
+}
+
 
 
 }

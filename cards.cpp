@@ -1,3 +1,4 @@
+
 #include "cards.h"
 
 bool Artifact::areAllDestroyed = false;
@@ -127,6 +128,7 @@ if(this->where == 'd' && CardsInHand <= 5)
     std::cout << "Artifact number " << this->id << " was tried to draw." << std::endl;
     return true;
 }
+
 
 else return false;
 
@@ -434,6 +436,7 @@ if (!boundingBoxCursor.intersects(cardBoundingBox))this->priority=false;
 void Cards::checkStatus(){
 
 
+
 {// It zooms and unzooms cards.
       this->cardSprite.setScale(0.5, 0.5);
 
@@ -455,8 +458,10 @@ if (!boundingBoxCursor.intersects(cardBoundingBox)){
 
 
 
+if (this->priority && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+    play();
 
+    }
 
 }
 
-}
