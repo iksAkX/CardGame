@@ -65,7 +65,9 @@ bool isDead();
 
 void equipWeapon();
 
+int getActiveMana();
 
+int getMaxMana();
 
 
 

@@ -146,3 +146,15 @@ this->activeMana-=amount;
 }
 
 
+int Character::getActiveMana(){
+
+return this->activeMana;
+}
+
+
+int Character::getMaxMana(){
+
+return this->maxMana;
+}
+
+

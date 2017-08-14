@@ -5,7 +5,6 @@ bool Game::cardDrawn = false;
 
 Game::Game()
 {
-    // podstawowe ustawienia okna
     window.create(VideoMode(1920, 1080), "Card Game", Style::Close);
     window.setFramerateLimit(60);
 
@@ -172,7 +171,7 @@ Artifact::refreshArtifacts();
 
 
 
-// do rysowania wszystkich obiektów na scenie
+
 void Game::draw()
 {
 

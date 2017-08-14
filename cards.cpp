@@ -42,12 +42,18 @@ return this->id;
 
 void Artifact::play(){
 
+if (Cards::caster.getActiveMana() <= this-> manaCost && this->where == 'h')
+{
+
+
 Cards::caster.spendActiveMana(this->manaCost);
 this->where='b';
 Cards::CardsOnBattlefield++;
 Cards::CardsInHand--;
 this->cardSprite.setPosition(Cards::CardsOnBattlefield*100, 450);
+}
 
+else std::cout << "You don't have enough mana OR this card isn't in your hand so you cannot play card with name: " << this->name << std::endl;
 
 }
 
@@ -242,16 +248,26 @@ if (this->actualHealth <= 0)this->where='g';
 
 void Spell::play() {
 
+
+if (Cards::caster.getActiveMana() <= this-> manaCost && this->where == 'h')
+{
 Cards::caster.spendActiveMana(this->manaCost);
 this->where='g';
     Cards::CardsInHand--;
 this->cardSprite.setPosition(-1000, -1000);
 }
 
+else std::cout << "You don't have enough mana OR this card isn't in your hand so you cannot play card with name: " << this->name << std::endl;
+
+
+}
+
 
 
 void Weapon::play() {
 
+if (Cards::caster.getActiveMana() <= this-> manaCost && this->where == 'h')
+{
 Cards::caster.spendActiveMana(this->manaCost);
 this->where='b';
 Cards::CardsInHand--;
@@ -259,16 +275,29 @@ Cards::CardsOnBattlefield++;
 this->cardSprite.setPosition(Cards::CardsOnBattlefield*100, 500);
 }
 
+else std::cout << "You don't have enough mana OR this card isn't in your hand so you cannot play card with name: " << this->name << std::endl;
+
+
+}
+
 void Skill::play(){
 
+if (Cards::caster.getActiveMana() <= this-> manaCost && this->where == 'h')
+{
 Cards::caster.spendActiveMana(this->manaCost);
 this->where='g';
 Cards::CardsInHand--;
 this->cardSprite.setPosition(-1000, -1000);
 }
 
+else std::cout << "You don't have enough mana OR this card isn't in your hand so you cannot play card with name: " << this->name << std::endl;
+
+
+}
+
 
 void Weapon::giveEffect(){
+
 
 }
 
@@ -406,6 +435,10 @@ if (!boundingBoxCursor.intersects(cardBoundingBox))this->priority=false;
 }
 
 
+if (this->priority && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+    play();
+
+    }
 
 }
 
@@ -426,6 +459,12 @@ if (boundingBoxCursor.intersects(cardBoundingBox) && this->cardSprite.getScale()
 }
 if (!boundingBoxCursor.intersects(cardBoundingBox))this->priority=false;
 }
+
+
+if (this->priority && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+    play();
+
+    }
 
 }
 
