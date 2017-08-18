@@ -3,60 +3,55 @@
 #include "character.h"
 #include "cards.h"
 #include "deck.h"
-
+#include <cstdlib>
 
 using namespace sf;
 
 class Game
 {
+
 public:
+ Deck playerDeck;
+ Deck enemyDeck;
 
-    Deck playerDeck;
-    Deck enemyDeck;
+ sf::Texture heroTexture;
+ sf::Sprite heroSprite;
+ sf::Text yourName;
 
-    Artifact artifact[5];
-    Weapon weapon[5];
-    Spell spell[5];
-    Skill skill[5];
+ sf::Texture enemyTexture;
+ sf::Sprite enemySprite;
 
-   static bool cardDrawn;
+ sf::Texture backgroundTexture;
+ sf::Sprite backgroundSprite;
 
-   sf::Texture heroTexture;
-   sf::Sprite heroSprite;
-   sf::Text yourName;
+ sf::Font defaultFont;
+ sf::Text enemyName;
 
-   sf::Texture enemyTexture;
-   sf::Sprite enemySprite;
+ sf::Texture endTurnTexture;
+ sf::Sprite endTurnSprite;
+ sf::Texture enemyTurnTexture;
 
-   sf::Texture backgroundTexture;
-   sf::Sprite backgroundSprite;
+ sf::Texture cursorTexture;
+ sf::Sprite cursor;
 
-   sf::Font defaultFont;
-   sf::Text enemyName;
+ sf::Text enemyHealth;
+ sf::Text playerHealth;
 
-   sf::Texture endTurnTexture;
-   sf::Sprite endTurnSprite;
+ Character enemy;
+ Character hero;
 
+ bool enemyTurn = false;
 
-   sf::Texture cursorTexture;
-   sf::Sprite cursor;
-
-    int cardsInEnemyDeck;
-    int cardsInPlayerDeck;
-
-   Character enemy;
-   Character hero;
-
-    Game();
-    ~Game();
-
-
-    void start();
-
+ Game();
+ ~Game();
+ void start();
 
 private:
     void draw();
-    void drawCard(int howMany);
+    void checkStatusOfCards();
+    void renderZoomedCard();
+    void renderCards();
+    void checkWhoWon();
 
     RenderWindow window;
 
