@@ -76,13 +76,17 @@ void Deck::drawCard(int howMany){
         else if (cardDrawn==false && numberOfCardToDraw > 15 && numberOfCardToDraw <= 20 ){
             if(skill[numberOfCardToDraw-16].draw())cardDrawn = true;
         }
+        else if (Cards::caster.getName() != "You" && cardsInDeck <= 0)std::cout << "Bot doesn't have any cards in its deck.\n";
+        else if (Cards::caster.getName() == "You" && cardsInDeck <= 0)std::cout << "You don't have any cards in your deck.\n";
 
 
-    if (cardDrawn==false){
+    if (cardDrawn==false && this->cardsInDeck > 0){
      std::cout << "Card wasn't drawn, because it wasn't in deck.\n";
      goto again;
     }
 
+
     }
+
 
 }

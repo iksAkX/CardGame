@@ -1,4 +1,5 @@
 #include "cards.h"
+#include "cards.h"
 
 bool Artifact::areAllDestroyed = false;
 sf::Sprite Cards::cursor;
@@ -10,6 +11,7 @@ int Cards::CardsOnBattlefieldAI = 0;
 
 int Cards::maxNumberCardsInHand = 6;
 
+sf::Texture Cards::cardBackTexture;
 Character Cards::opponent;
 Character Cards::caster;
 
@@ -72,7 +74,7 @@ void Artifact::play(){
          this->where='b';
          std::cout<<"You have played card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana() << std::endl;
      }
-     std::cout<<"You couldn't card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana()<< std::endl;
+    else std::cout<<"You couldn't play card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana()<< std::endl;
     }
 
     else {
@@ -84,7 +86,7 @@ void Artifact::play(){
          this->where='b';
          std::cout<<"Bot has played card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana() << std::endl;
         }
-        std::cout<<"Bot couldn't play card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana()<< std::endl;
+      else  std::cout<<"Bot couldn't play card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana()<< std::endl;
     }
 }
 
@@ -157,7 +159,7 @@ bool Artifact::draw(){
     if (Cards::caster.getName() == "You"){
         if(this->where == 'd' && CardsInHand < Cards::maxNumberCardsInHand){
          Cards::CardsInHand++;
-         this->cardSprite.setPosition(Cards::CardsInHand*210, 830);
+         this->cardSprite.setPosition((1+Cards::CardsInHand*210), 950);
          this->where='h';
          return true;
         }
@@ -167,8 +169,10 @@ bool Artifact::draw(){
 
     else {
         if(this->where == 'd' && CardsInHandAI < Cards::maxNumberCardsInHand){
+         Cards::cardBackTexture.loadFromFile("media/card_back.png");
+         this->cardSprite.setTexture(Cards::cardBackTexture, true);
          Cards::CardsInHandAI++;
-         this->cardSprite.setPosition(CardsInHandAI*210, 180);
+         this->cardSprite.setPosition((1+CardsInHandAI*210), 130);
          this->where='h';
          return true;
         }
@@ -189,7 +193,7 @@ bool Weapon::draw(){
      if (Cards::caster.getName() == "You"){
         if(this->where == 'd' && CardsInHand < Cards::maxNumberCardsInHand){
          Cards::CardsInHand++;
-         this->cardSprite.setPosition(Cards::CardsInHand*210, 830);
+         this->cardSprite.setPosition((1+Cards::CardsInHand*210), 950);
          this->where='h';
          return true;
         }
@@ -200,7 +204,9 @@ bool Weapon::draw(){
     else {
         if(this->where == 'd' && CardsInHandAI < Cards::maxNumberCardsInHand){
          Cards::CardsInHandAI++;
-         this->cardSprite.setPosition(CardsInHandAI*210, 180);
+         Cards::cardBackTexture.loadFromFile("media/card_back.png");
+         this->cardSprite.setTexture(Cards::cardBackTexture, true);
+         this->cardSprite.setPosition((1+CardsInHandAI*210), 130);
          this->where='h';
          return true;
         }
@@ -218,7 +224,7 @@ bool Skill::draw(){
     if (Cards::caster.getName() == "You"){
         if(this->where == 'd' && CardsInHand < Cards::maxNumberCardsInHand){
          Cards::CardsInHand++;
-         this->cardSprite.setPosition(Cards::CardsInHand*210, 830);
+         this->cardSprite.setPosition((1+Cards::CardsInHand)*210, 950);
          this->where='h';
          return true;
         }
@@ -229,7 +235,9 @@ bool Skill::draw(){
     else {
         if(this->where == 'd' && CardsInHandAI < Cards::maxNumberCardsInHand){
          Cards::CardsInHandAI++;
-         this->cardSprite.setPosition(CardsInHandAI*210, 180);
+         Cards::cardBackTexture.loadFromFile("media/card_back.png");
+         this->cardSprite.setTexture(Cards::cardBackTexture, true);
+         this->cardSprite.setPosition((1+CardsInHandAI*210), 130);
          this->where='h';
          return true;
         }
@@ -247,22 +255,24 @@ bool Spell::draw(){
     if (Cards::caster.getName() == "You"){
         if(this->where == 'd' && CardsInHand < Cards::maxNumberCardsInHand){
          Cards::CardsInHand++;
-         this->cardSprite.setPosition(Cards::CardsInHand*210, 830);
+         this->cardSprite.setPosition((1+Cards::CardsInHand*210), 950);
          this->where='h';
          return true;
         }
-         std::cout << "You have too many cards in hand! You can't draw more.\n";
+        else std::cout << "You have too many cards in hand! You can't draw more.\n";
      return false;
     }
 
     else {
         if(this->where == 'd' && CardsInHandAI < Cards::maxNumberCardsInHand){
          Cards::CardsInHandAI++;
-         this->cardSprite.setPosition(CardsInHandAI*210, 180);
+         Cards::cardBackTexture.loadFromFile("media/card_back.png");
+         this->cardSprite.setTexture(Cards::cardBackTexture, true);
+         this->cardSprite.setPosition((1+CardsInHandAI*210), 130);
          this->where='h';
          return true;
         }
-         std::cout << "Bot has too many cards in hand! He can't draw more.\n";
+        else std::cout << "Bot has too many cards in hand! He can't draw more.\n";
      return false;
     }
 }
@@ -326,7 +336,7 @@ void Spell::play() {
          this->where='b';
          std::cout<<"You have played card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana() << std::endl;
      }
-     std::cout<<"You couldn't card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana()<< std::endl;
+        else std::cout<<"You couldn't card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana()<< std::endl;
     }
 
     else {
@@ -337,7 +347,7 @@ void Spell::play() {
          this->where='b';
          std::cout<<"Bot has played card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana() << std::endl;
         }
-        std::cout<<"Bot couldn't play card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana()<< std::endl;
+        else std::cout<<"Bot couldn't play card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana()<< std::endl;
     }
 }
 
@@ -352,18 +362,18 @@ void Weapon::play() {
          this->where='b';
          std::cout<<"You have played card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana() << std::endl;
      }
-     std::cout<<"You couldn't card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana()<< std::endl;
+        else std::cout<<"You couldn't card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana()<< std::endl;
     }
 
     else {
         if(Cards::caster.getActiveMana() >= this->manaCost && this->where == 'h'){
          Cards::caster.spendActiveMana(this->manaCost);
          Cards::CardsInHandAI--;
-         this->cardSprite.setPosition(500,250);
+         this->cardSprite.setPosition(400,150);
          this->where='b';
          std::cout<<"Bot has played card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana() << std::endl;
         }
-        std::cout<<"Bot couldn't play card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana()<< std::endl;
+        else std::cout<<"Bot couldn't play card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana()<< std::endl;
     }
 }
 
@@ -378,7 +388,7 @@ void Skill::play(){
          this->where='b';
          std::cout<<"You have played card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana() << std::endl;
      }
-     std::cout<<"You couldn't card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana()<< std::endl;
+        else std::cout<<"You couldn't card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana()<< std::endl;
     }
 
     else {
@@ -389,7 +399,7 @@ void Skill::play(){
          this->where='b';
          std::cout<<"Bot has played card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana() << std::endl;
         }
-        std::cout<<"Bot couldn't play card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana()<< std::endl;
+        else std::cout<<"Bot couldn't play card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana()<< std::endl;
     }
 }
 
@@ -507,22 +517,21 @@ void Artifact::checkStatus(){
 
     if(Artifact::areAllDestroyed)getDestroyed();
 
- {// It controls zooming and unzooming cards.
- this->cardSprite.setScale(0.5, 0.5); // older:     this->cardSprite.setScale(1, 1);
+ this->cardSprite.setScale(0.5, 0.5);
 
  sf::FloatRect boundingBoxCursor = Cards::cursor.getGlobalBounds();
  sf::FloatRect cardBoundingBox = this->cardSprite.getGlobalBounds();
 
-    if (boundingBoxCursor.intersects(cardBoundingBox) && this->cardSprite.getScale().x < 0.9){
+    if (boundingBoxCursor.intersects(cardBoundingBox) && this->cardSprite.getScale().x < 0.9 && Cards::caster.getName() == "You"){
      this->priority = true;
      this->cardSprite.setScale(1, 1);
     }
 
     if(!boundingBoxCursor.intersects(cardBoundingBox))this->priority=false;
 
- }
 
-if (this->priority && sf::Mouse::isButtonPressed(sf::Mouse::Left) && Cards::caster.getName() == "You"){
+
+if (this->priority && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
     play();
     }
 
@@ -531,18 +540,18 @@ if (this->priority && sf::Mouse::isButtonPressed(sf::Mouse::Left) && Cards::cast
 
 void Weapon::checkStatus(){
 
-    if (this->durability <= 0)getDestroyed();{// It zooms and unzooms cards.
+    if (this->durability <= 0)getDestroyed();
  this->cardSprite.setScale(0.5, 0.5);
  sf::FloatRect boundingBoxCursor = Cards::cursor.getGlobalBounds();
  sf::FloatRect cardBoundingBox = this->cardSprite.getGlobalBounds();
 
-        if (boundingBoxCursor.intersects(cardBoundingBox) && this->cardSprite.getScale().x < 0.9){
+        if (boundingBoxCursor.intersects(cardBoundingBox) && this->cardSprite.getScale().x < 0.9 && Cards::caster.getName() == "You"){
         this->cardSprite.setScale(1, 1);
         this->priority = true;
         }
 
         if (!boundingBoxCursor.intersects(cardBoundingBox))this->priority=false;
-    }
+
 
 
     if (this->priority && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
@@ -554,14 +563,13 @@ void Weapon::checkStatus(){
 
 void Cards::checkStatus(){
 
- this->cardSprite.setOrigin(this->cardTexture.getSize().x/2, this->cardTexture.getSize().y/2);
- {// It zooms and unzooms cards.
+
  this->cardSprite.setScale(0.5, 0.5);
 
  sf::FloatRect boundingBoxCursor = Cards::cursor.getGlobalBounds();
  sf::FloatRect cardBoundingBox = this->cardSprite.getGlobalBounds();
 
-    if(boundingBoxCursor.intersects(cardBoundingBox) && this->cardSprite.getScale().x < 0.9){
+    if(boundingBoxCursor.intersects(cardBoundingBox) && this->cardSprite.getScale().x < 0.9 && Cards::caster.getName() == "You"){
      this->cardSprite.setScale(1, 1);
      this->priority = true;
     }
@@ -570,10 +578,11 @@ void Cards::checkStatus(){
      this->priority=false;
     }
 
-}
+
 
     if(this->priority && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
      play();
     }
 
 }
+

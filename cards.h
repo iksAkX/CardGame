@@ -19,7 +19,8 @@ protected:
 public:
     static Character opponent;
     static Character caster;
-
+    static sf::Texture cardBackTexture;
+    
     static int CardsInHand;
     static int CardsInHandAI;
     static int CardsOnBattlefield;
