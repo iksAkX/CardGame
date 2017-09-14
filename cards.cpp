@@ -70,7 +70,7 @@ void Artifact::play(){
          Cards::caster.spendActiveMana(this->manaCost);
          Cards::CardsInHand--;
          Cards::CardsOnBattlefield++;
-         this->cardSprite.setPosition(Cards::CardsOnBattlefield*210, 530);
+         this->cardSprite.setPosition((Cards::CardsOnBattlefield*210)+50, 530);
          this->where='b';
          std::cout<<"You have played card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana() << std::endl;
      }
@@ -82,7 +82,7 @@ void Artifact::play(){
          Cards::caster.spendActiveMana(this->manaCost);
          Cards::CardsInHandAI--;
          Cards::CardsOnBattlefieldAI++;
-         this->cardSprite.setPosition(Cards::CardsOnBattlefieldAI*210, 400);
+         this->cardSprite.setPosition((Cards::CardsOnBattlefieldAI*210)+50, 400);
          this->where='b';
          std::cout<<"Bot has played card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana() << std::endl;
         }
@@ -336,7 +336,7 @@ void Spell::play() {
          this->where='b';
          std::cout<<"You have played card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana() << std::endl;
      }
-        else std::cout<<"You couldn't card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana()<< std::endl;
+        else std::cout<<"You couldn't play card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana()<< std::endl;
     }
 
     else {
@@ -358,18 +358,18 @@ void Weapon::play() {
         if(Cards::caster.getActiveMana() >= this->manaCost && this->where == 'h'){
          Cards::caster.spendActiveMana(this->manaCost);
          Cards::CardsInHand--;
-         this->cardSprite.setPosition(500,950);
+         this->cardSprite.setPosition(1750,950); // active weapon position for player's weapon
          this->where='b';
          std::cout<<"You have played card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana() << std::endl;
      }
-        else std::cout<<"You couldn't card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana()<< std::endl;
+        else std::cout<<"You couldn't play card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana()<< std::endl;
     }
 
     else {
         if(Cards::caster.getActiveMana() >= this->manaCost && this->where == 'h'){
          Cards::caster.spendActiveMana(this->manaCost);
          Cards::CardsInHandAI--;
-         this->cardSprite.setPosition(400,150);
+         this->cardSprite.setPosition(1750,300); // active weapon position for AI's weapon
          this->where='b';
          std::cout<<"Bot has played card is called " << this->name << "\n Active mana: " << Cards::caster.getActiveMana() << std::endl;
         }
@@ -451,6 +451,7 @@ void Skill::setThis(int id, std::string name, int manaCost, int rarity, char whe
  this->where = where;
  this->manaCost = manaCost;
  this->cardSprite.setPosition(-1000,-1000);
+
 }
 
 
@@ -569,7 +570,7 @@ void Cards::checkStatus(){
  sf::FloatRect boundingBoxCursor = Cards::cursor.getGlobalBounds();
  sf::FloatRect cardBoundingBox = this->cardSprite.getGlobalBounds();
 
-    if(boundingBoxCursor.intersects(cardBoundingBox) && this->cardSprite.getScale().x < 0.9 && Cards::caster.getName() == "You"){
+    if(boundingBoxCursor.intersects(cardBoundingBox) && this->cardSprite.getScale().x < 0.9 && Cards::caster.getName() == "You" ){
      this->cardSprite.setScale(1, 1);
      this->priority = true;
     }

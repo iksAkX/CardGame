@@ -46,7 +46,7 @@ std::string Character::getCharacterNameAsString(){
 
 
 sf::Texture Character::getCharacterTexture(){
- return characterTexture;
+ return this -> characterTexture;
 }
 
 

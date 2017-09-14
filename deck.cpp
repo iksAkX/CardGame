@@ -20,10 +20,10 @@ Deck::Deck(){
  spell[3].setThis(14, "Hot award", 5, 0, 'd', "media/hot_award.png");
  spell[4].setThis(15, "Almighty Force", 10, 2, 'd', "media/almighty_force.png");
 
- skill[0].setThis(16, "èrÛd≥o Many", 1, 0, 'd', "media/cute_image.png");
- skill[1].setThis(17, "Moc èrÛd≥a", 1, 0, 'd', "media/cute_image.png");
+ skill[0].setThis(16, "Aha Many", 1, 0, 'd', "media/cute_image.png");
+ skill[1].setThis(17, "Power Cos Tam", 1, 0, 'd', "media/cute_image.png");
  skill[2].setThis(18, "Astralna Energia", 1, 0, 'd', "media/cute_image.png");
- skill[3].setThis(19, "Nierealna PotÍga", 1, 0, 'd', "media/cute_image.png");
+ skill[3].setThis(19, "Nierealna Potega", 1, 0, 'd', "media/cute_image.png");
  skill[4].setThis(20, "MOOOOC!", 1, 0, 'd', "media/cute_image.png");
 
 
@@ -66,15 +66,19 @@ void Deck::drawCard(int howMany){
 
         if(cardDrawn == false && numberOfCardToDraw <= 5){
             if(artifact[numberOfCardToDraw-1].draw())cardDrawn = true;
+            else std::cout <<"A card had been drawn before your current try.\n";
         }
         else if (cardDrawn==false && numberOfCardToDraw > 5 && numberOfCardToDraw <= 10 ){
             if(weapon[numberOfCardToDraw-6].draw())cardDrawn = true;
+            else std::cout <<"A card had been drawn before your current try.\n";
         }
         else if (cardDrawn==false && numberOfCardToDraw > 10 && numberOfCardToDraw <= 15 ){
             if(spell[numberOfCardToDraw-11].draw())cardDrawn = true;
+            else std::cout <<"A card had been drawn before your current try.\n";
         }
         else if (cardDrawn==false && numberOfCardToDraw > 15 && numberOfCardToDraw <= 20 ){
             if(skill[numberOfCardToDraw-16].draw())cardDrawn = true;
+            else std::cout <<"A card had been drawn before your current try.\n";
         }
         else if (Cards::caster.getName() != "You" && cardsInDeck <= 0)std::cout << "Bot doesn't have any cards in its deck.\n";
         else if (Cards::caster.getName() == "You" && cardsInDeck <= 0)std::cout << "You don't have any cards in your deck.\n";

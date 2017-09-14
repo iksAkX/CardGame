@@ -188,7 +188,6 @@ void Game::checkStatusOfCards(){
 
 void Game::renderZoomedCard(){
 
-
    for (int i=0;i<=4;i++){ // setting zoom option for player
         if(playerDeck.artifact[i].getPriority()) window.draw(playerDeck.artifact[i].getSprite());
         else if(playerDeck.spell[i].getPriority()) window.draw(playerDeck.spell[i].getSprite());
