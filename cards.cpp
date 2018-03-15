@@ -159,7 +159,9 @@ bool Artifact::draw(){
     if (Cards::caster.getName() == "You"){
         if(this->where == 'd' && CardsInHand < Cards::maxNumberCardsInHand){
          Cards::CardsInHand++;
-         this->cardSprite.setPosition((1+Cards::CardsInHand*210), 950);
+
+         this->cardSprite.setPosition((1+Cards::CardsInHand*210), 950); //bugs position of cards
+
          this->where='h';
          return true;
         }
@@ -542,6 +544,7 @@ if (this->priority && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 void Weapon::checkStatus(){
 
     if (this->durability <= 0)getDestroyed();
+    else {
  this->cardSprite.setScale(0.5, 0.5);
  sf::FloatRect boundingBoxCursor = Cards::cursor.getGlobalBounds();
  sf::FloatRect cardBoundingBox = this->cardSprite.getGlobalBounds();
@@ -558,7 +561,7 @@ void Weapon::checkStatus(){
     if (this->priority && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
      play();
     }
-
+    }
 }
 
 

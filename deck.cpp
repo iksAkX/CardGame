@@ -20,7 +20,7 @@ Deck::Deck(){
  spell[3].setThis(14, "Hot award", 5, 0, 'd', "media/hot_award.png");
  spell[4].setThis(15, "Almighty Force", 10, 2, 'd', "media/almighty_force.png");
 
- skill[0].setThis(16, "Aha Many", 1, 0, 'd', "media/cute_image.png");
+ skill[0].setThis(16, "Aha Many", 1, 0, 'd', "media/cute_image.png"); // int id, std::string name, int manaCost, int rarity, char where, std::string whereIsTexture
  skill[1].setThis(17, "Power Cos Tam", 1, 0, 'd', "media/cute_image.png");
  skill[2].setThis(18, "Astralna Energia", 1, 0, 'd', "media/cute_image.png");
  skill[3].setThis(19, "Nierealna Potega", 1, 0, 'd', "media/cute_image.png");
@@ -60,24 +60,24 @@ void Deck::drawCard(int howMany){
 
 
     for(int i=0;i<howMany;i++){
-     this->cardDrawn = false;
+
      again:
      int numberOfCardToDraw = ( std::rand() % this->cardsInDeck ) + smallestId;
 
         if(cardDrawn == false && numberOfCardToDraw <= 5){
-            if(artifact[numberOfCardToDraw-1].draw())cardDrawn = true;
+            if(artifact[numberOfCardToDraw-1].draw()){cardDrawn = true; std::cout << "Card drawn. OK.\n";}
             else std::cout <<"A card had been drawn before your current try.\n";
         }
         else if (cardDrawn==false && numberOfCardToDraw > 5 && numberOfCardToDraw <= 10 ){
-            if(weapon[numberOfCardToDraw-6].draw())cardDrawn = true;
+            if(weapon[numberOfCardToDraw-6].draw()){cardDrawn = true; std::cout << "Card drawn. OK.\n";}
             else std::cout <<"A card had been drawn before your current try.\n";
         }
         else if (cardDrawn==false && numberOfCardToDraw > 10 && numberOfCardToDraw <= 15 ){
-            if(spell[numberOfCardToDraw-11].draw())cardDrawn = true;
+            if(spell[numberOfCardToDraw-11].draw()){cardDrawn = true; std::cout << "Card drawn. OK.\n";}
             else std::cout <<"A card had been drawn before your current try.\n";
         }
         else if (cardDrawn==false && numberOfCardToDraw > 15 && numberOfCardToDraw <= 20 ){
-            if(skill[numberOfCardToDraw-16].draw())cardDrawn = true;
+            if(skill[numberOfCardToDraw-16].draw()){cardDrawn = true; std::cout << "Card drawn. OK.\n";}
             else std::cout <<"A card had been drawn before your current try.\n";
         }
         else if (Cards::caster.getName() != "You" && cardsInDeck <= 0)std::cout << "Bot doesn't have any cards in its deck.\n";

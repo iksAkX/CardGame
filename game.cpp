@@ -18,7 +18,7 @@ Game::Game()
     defaultFont.loadFromFile("media/arial.ttf");
     enemyName.setFont(defaultFont);
     enemyName.setCharacterSize(38);
-    enemyName.setColor(Color(100, 200, 300));
+    enemyName.setColor(Color(100, 200, 254));
     enemyName.setPosition(4,12);
     enemyName.setString("The Tiny Destroyer"); ////////////////////////
 
@@ -129,7 +129,7 @@ void Game::start(){
      }
 
 
-     else if(Character::isEnemyTurn==false && elapsedTime.asMilliseconds() && did == false){ //you
+     else if(Character::isEnemyTurn==false && elapsedTime.asMilliseconds() > 2500 && did == false){ //you
         Cards::setCharacters(hero, enemy);
         endTurnSprite.setTexture(endTurnTexture);
         hero.gainActiveMana(1);
@@ -218,8 +218,8 @@ void Game::renderCards(){
 
 void Game::checkWhoWon(){
 
-    if (hero.isDead() && enemy.isDead()==false)std::cout<<"You lost!\n";
-    else if (enemy.isDead() && hero.isDead()==false)std::cout<<"YOU WON! Your enemy lost.\n";
-    else if (hero.isDead() && enemy.isDead())std::cout<<"Draw! There is no winner\n";
+    if (hero.isDead() && enemy.isDead()==false)std::cout<<"You have lost!\n";
+    else if (enemy.isDead() && hero.isDead()==false)std::cout<<"YOU HAVE WON! Your enemy has just lost.\n";
+    else if (hero.isDead() && enemy.isDead())std::cout<<"Draw! There is no winner...\n";
 }
 
